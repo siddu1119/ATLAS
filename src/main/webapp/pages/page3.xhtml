@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+	<ui:define name="content">
+		       <h:form id="form">
+
+           <p:dataTable id="carTable"
+                                    value="#{cellEditorBean.cars}"
+                                    var="car">
+               <p:ajax event="editSubmit" render="facesMsgs"/>
+               
+                <p:column id="name" headerText="Name">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText id="nameCell" value="#{car.name}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:inputText id="nameInput" value="#{car.name}"/>
+                        </f:facet>
+                    </p:cellEditor>
+               </p:column>
+               <p:column id="chassis" headerText="Chassis">
+                   <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText id="chassisCell" value="#{car.chassis}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:inputText id="chassisInput" value="#{car.chassis}"/>
+                        </f:facet>
+                    </p:cellEditor>
+               </p:column>
+               <p:column id="weight" headerText="Weight (lbs)">
+                   <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText id="weightCell" value="#{car.weight}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:inputText id="weightInput" value="#{car.weight}"/>
+                        </f:facet>
+                    </p:cellEditor>
+               </p:column>
+               
+               <p:column id="options" headerText="Options">
+                   <p:rowEditor id="editor"/>
+               </p:column>
+            </p:dataTable>
+        </h:form>
+	</ui:define>
+</ui:composition>

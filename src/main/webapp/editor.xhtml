@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head />
+<h:body>
+	<ui:composition template="template.xhtml">
+		<ui:define name="title">
+			Welcome DataTable
+		</ui:define>
+		<ui:define name="header">
+			<h:form id="form1">
+				<p:growl id="msgs" showDetail="true" />
+
+				<p:dataTable id="cars1" var="car" value="#{dtEditView.cars1}"
+					editable="true" style="margin-bottom:20px">
+					<f:facet name="header">
+           Row Editing
+       </f:facet>
+
+					<p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}"
+						update=":form1:msgs" />
+					<p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}"
+						update=":form1:msgs" />
+
+					<p:column headerText="Id">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{car.id}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText id="modelInput" value="#{car.id}"
+									style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Year">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{car.year}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{car.year}" style="width:100%" label="Year" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Brand">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{car.brand}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:selectOneMenu value="#{car.brand}" style="width:100%">
+									<f:selectItems value="#{dtEditView.brands}" var="man"
+										itemLabel="#{man}" itemValue="#{man}" />
+								</h:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Color">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{car.color}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:selectOneMenu value="#{car.color}" style="width:100%">
+									<f:selectItems value="#{dtEditView.colors}" var="color"
+										itemLabel="#{color}" itemValue="#{color}" />
+								</h:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+		<ui:define name="message">
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
